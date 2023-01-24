@@ -2,11 +2,12 @@
 import React from 'react'
 import { useState } from 'react'
 import { AiOutlineShareAlt, AiFillLike, AiOutlineComment } from "react-icons/ai";
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import "../styles/blogpage.css"
 const BlogsPage = () => {
     const [comment, setComment] = useState()
-
+    const user = useSelector((state) => state.user.user)
     return (
         <div>
             <div className="mt-10 ">
@@ -18,7 +19,7 @@ const BlogsPage = () => {
                         </div>
                         <div className="px-10 flex flex-col gap-2 relative">
                             <div className="flex mb-5 items-center gap-3 justify-between">
-                                <Link to={"/profilepage"}>
+                                <Link to={`/profilepage/${user._id}`}>
                                     <div className="flex gap-3">
                                         <img className='object-cover rounded-full w-10 h-10' src={"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"} width={1000} height={1000} alt="" />
                                         <div className="flex flex-col text-center">

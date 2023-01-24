@@ -1,11 +1,11 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { useSelector } from "react-redux"
 
 const Hero = () => {
-  
-    const user = true
+
+    const user = useSelector((state) => state.user.user)
     return (
         <div className="my-10 relative overflow-hidden">
             <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 mr-5 rounded-2xl overflow-hidden">
@@ -22,7 +22,7 @@ const Hero = () => {
                             <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
                             <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                                 {user ?
-                                    <Link to={"/dashboard"}>
+                                    <Link to={`/dashboard/${user._id}`}>
                                         <div className="rounded-md shadow">
                                             <p className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg">Start Now</p>
                                         </div>

@@ -1,16 +1,18 @@
-// import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
-import { useDispatch } from "react-redux"
-import { useUploadPostMutation } from '../redux/postApi'
+import { useDispatch, useSelector } from "react-redux"
+import { uploadPost } from '../redux/postSlice'
+
 
 const Form = () => {
+    const user = useSelector((state) => state.user.user)
+    let userId = user._id
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
     const [image, setImage] = useState("")
     const [category, setCategory] = useState("")
     const dispatch = useDispatch()
-    const [uploadPost,] = useUploadPostMutation()
+
 
     const handleChange = (e) => {
         if (e.target.name === "title") {
@@ -23,15 +25,24 @@ const Form = () => {
             setCategory(e.target.value)
         }
     }
+
     const handleImage = (e) => {
         const file = e.target.files[0]
-        setImage({
-            image: URL.createObjectURL(file)
-        })
+        setFileToBase(file);
+        console.log(file)
     }
+
+    const setFileToBase = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setImage(reader.result);
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(uploadPost({title, desc, image, category}))
+        dispatch(uploadPost({ title, desc, image, category, userId }))
     }
 
     return (
@@ -60,15 +71,10 @@ const Form = () => {
 
                                     <div className="col-span-6 sm:col-span-3">
                                         <span className='border border-gray-500 rounded-lg px-4 py-3 '>
-                                            <label htmlFor="street-address" className=" text-sm font-medium cursor-pointer text-gray-700">Select Image +</label>
-                                            <input onClick={() => setImage(true)} type="file" onChange={handleImage} rows="8" name="image" id="street-address" autoComplete="street-address" className="mt-1 hidden w-full rounded-md p-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                            <input type="file" onChange={handleImage} rows="8" name="image" id="street-address" autoComplete="street-address" className="mt-1  w-full rounded-md p-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                                         </span>
                                     </div>
-                                    {image &&
-                                        <div className="col-span-6 sm:col-span-3">
-                                            <img className='w-full h-36 object-cover rounded-md' src={image.image} alt="" />
-                                        </div>
-                                    }
+                                   
                                     <div className="col-span-6">
                                         <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">Artical</label>
                                         <textarea type="text" rows="8" onChange={handleChange} value={desc} name="desc" id="street-address" autoComplete="street-address" className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
@@ -77,7 +83,7 @@ const Form = () => {
                                 </div>
                             </div>
                             <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                                <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
+                                <button type="submit" className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Publish</button>
                             </div>
                         </div>
                     </form>

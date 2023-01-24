@@ -1,7 +1,7 @@
 
 import Homepage from "./pages/homepage"
 import "./styles/app.css"
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import Blogpage from "./pages/blogpage"
 import Blogs from "./pages/blogs"
 import ProfilePage from "./pages/profilePage"
@@ -14,10 +14,13 @@ import Chat from "./components/chat"
 import { useState } from "react"
 import { BsChatText } from 'react-icons/bs'
 import Pagenotfound from "./pages/pagenotfound"
+import { useSelector } from "react-redux"
 
 
 export default function App() {
   const [chat, setChat] = useState()
+  const User = useSelector((state) => state.user.user)
+
   return (
     <div className="app">
       {chat ? "" :
@@ -31,12 +34,12 @@ export default function App() {
       }
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/blogpage" element={<Blogpage />} />
+        <Route path="/blogpage" element={<Blogpage/>} />
         <Route path="/blogs" element={<Blogs />} />
-        <Route path="/profilepage" element={<ProfilePage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/profilepage/:id" element={<ProfilePage />} />
+        <Route path="/dashboard/:id" element={User ? <Dashboard /> : <Navigate to={"../login"} />} />
+        <Route path="/login" element={User ? <Navigate to={"/"} /> : <Login />} />
+        <Route path="/register" element={User ? <Navigate to={"../login"} /> : <Register />} />
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/contactus" element={<Contactus />} />
         <Route path="*" element={<Pagenotfound />} />

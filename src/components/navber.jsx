@@ -8,6 +8,7 @@ import { logOut } from '../redux/authSlice';
 const Navber = () => {
     const user = useSelector((state) => state.user.user)
     const [profile, setProfile] = useState()
+
     const dispatch = useDispatch()
     const handleLogOut = () => {
         dispatch(logOut())
@@ -50,12 +51,12 @@ const Navber = () => {
                         {profile &&
                             <div onMouseLeave={() => setProfile(false)} className="bg-purple-300 absolute top-8 right-3 p-5 rounded-lg text-gray-800">
                                 <ul className='p-2 text-lg rounded-lg hover:bg-purple-200'>
-                                    <Link to={"/profilepage"}>
+                                    <Link to={`../profilepage/${user._id}`}>
                                         <li>Profile</li>
                                     </Link>
                                 </ul>
                                 <ul className='p-2 text-lg rounded-lg hover:bg-purple-200'>
-                                    <Link to={"../dashboard"}>
+                                    <Link to={`../dashboard/${user._id}`}>
                                         <li>Dashboard</li>
                                     </Link>
                                 </ul>
@@ -64,7 +65,9 @@ const Navber = () => {
                                 </ul>
 
                                 <ul onClick={handleLogOut} className='p-2 text-lg rounded-lg hover:bg-purple-200 cursor-pointer'>
-                                    <li>Log Out</li>
+                                    <Link to={"/"}>
+                                        <li>Log Out</li>
+                                    </Link>
                                 </ul>
                             </div>
                         }

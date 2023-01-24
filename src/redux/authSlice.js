@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
+
+
 const initialState = {
-    user: null,
+    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
     loading: false,
     error: false,
     message: "",
@@ -19,6 +21,7 @@ export const registerUser = createAsyncThunk("registerUser", async (body) => {
     return res.json()
 })
 export const loginUser = createAsyncThunk("loginuser", async (body) => {
+
     const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "PUT",
         headers: {
@@ -27,6 +30,7 @@ export const loginUser = createAsyncThunk("loginuser", async (body) => {
         body: JSON.stringify(body)
     })
     return res.json()
+
 })
 
 export const authSlice = createSlice({
@@ -41,7 +45,7 @@ export const authSlice = createSlice({
         },
         logOut: (state, action) => {
             localStorage.clear()
-            state.user = ""
+            state.user = null
             state.token = ""
         },
     },
@@ -49,14 +53,10 @@ export const authSlice = createSlice({
         [registerUser.pending]: (state, action) => {
             state.loading = true;
         },
-        [registerUser.fulfilled]: (state, { payload: { error, message, user } }) => {
-            if (state.error) {
-                state.error = error
-            } else {
+        [registerUser.fulfilled]: (state, action) => {
                 state.loading = false
-                state.message = message
-                state.user = user
-            }
+                state.message = action.payload.message
+                state.user = action.payload
         },
         [registerUser.rejected]: (state, action) => {
             state.error = true
@@ -67,10 +67,16 @@ export const authSlice = createSlice({
         [loginUser.pending]: (state, action) => {
             state.loading = true;
         },
-
         [loginUser.fulfilled]: (state, action) => {
-            state.user = action.payload
-            
+
+            state.loading = false
+            state.message = action.payload.message
+            state.user = action.payload.others
+            state.token = action.payload.token
+
+            localStorage.setItem("user", JSON.stringify(action.payload.others))
+            localStorage.setItem("token", action.payload.token)
+
         },
 
         [loginUser.rejected]: (state, action) => {

@@ -1,18 +1,28 @@
 
-import React from 'react'
-// import { useGetAllPostQuery } from '../redux/postApi'
+import React, { useEffect } from 'react'
+import { useSelector } from "react-redux"
+import { useParams } from 'react-router-dom'
+// import { useGetUsersPostMutation } from '../redux/postApi'
+import axios from "axios"
 
 const Table = () => {
+    const {id} = useParams()
+    const username = useSelector((state) => state.user.user.username)
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const res = await axios.get(`http://localhost:5000/api/user/users/${id}`, {
+                username : username ,
+            })
+            console.log(res.data)
+        }
+        fetchUserData()
+    }, [username, id])
 
-    // const {data} = useGetAllPostQuery() 
-  
     return (
         <div>
             <div className=' flex justify-between items-center mb-4'>
                 <h1 className=' text-xl font-semibold '>Data</h1>
-
                 <input className='px-2 py-1 bg-transparent rounded-md border border-gray-400 focus:outline-none' type="text" placeholder='search' />
-
             </div>
             <table className=' border border-gray-400 shadow-md '>
                 <thead>
