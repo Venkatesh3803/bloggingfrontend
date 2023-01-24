@@ -8,6 +8,7 @@ const initialState = {
     token: ""
 }
 
+
 export const uploadPost = createAsyncThunk("uploadpost", async (body) => {
     const res = await fetch("https://blooging-backend.onrender.com/api/post/create", {
         method: "POST",
