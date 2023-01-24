@@ -53,7 +53,7 @@ const Navber = () => {
                         {profile &&
                             <div onMouseLeave={() => setProfile(false)} className="bg-purple-300 absolute top-8 right-3 p-5 rounded-lg text-gray-800">
                                 <ul className='p-2 text-lg rounded-lg hover:bg-purple-200'>
-                                    <Link to={`../profilepage/${user?._id}`}>
+                                    <Link to={`../profilepage/${user?.username}`}>
                                         <li>Profile</li>
                                     </Link>
                                 </ul>

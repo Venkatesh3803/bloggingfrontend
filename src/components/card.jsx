@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-
 const Cards = () => {
     const [posts, setPosts] = useState([])
 
@@ -14,16 +13,14 @@ const Cards = () => {
         fetchingpost()
     }, [])
 
-    console.log(posts)
-
     return (
         <div>
             <section className="text-gray-600 body-font">
                 <div className="container px-10 py-10 mx-auto">
-                    {posts?.map((item) => {
-                        return (
-                            <div className="flex flex-wrap -m-4">
-                                <div className="p-4 m-2">
+                    <div className="flex flex-wrap -m-4">
+                        {posts?.map((item) => {
+                            return (
+                                <div className="p-4 md:w-1/4" key={item._id}>
                                     <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-md">
                                         <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={item.image?.url} alt="" />
                                         <div className="p-6">
@@ -55,9 +52,9 @@ const Cards = () => {
                                     </div>
                                 </div>
 
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
                 </div>
             </section>
         </div>

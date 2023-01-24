@@ -17,7 +17,7 @@ const Dashboard = () => {
                     <Table />
                 </div>
             </div>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     )
 }

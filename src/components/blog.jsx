@@ -3,44 +3,40 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { AiOutlineShareAlt, AiFillLike, AiOutlineComment } from "react-icons/ai";
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import "../styles/blogpage.css"
 import axios from 'axios';
-import { useParams } from "react-router-dom"
+import {format} from "timeago.js"
 
-const BlogsPage = () => {
-    const { id } = useParams()
+
+const BlogsPage = ({ currentPost, username }) => {
     const [comment, setComment] = useState()
-    const user = useSelector((state) => state.user.user)
-    const [currentPost, setCurrentPost] = useState("")
+    const [currentUser, setCurrentUser] = useState("")
     useEffect(() => {
         const fetchingPost = async () => {
-            const res = await axios.get(`http://localhost:5000/api/post/${id}`)
-            setCurrentPost(res.data)
+            const res = await axios.get(`https://blooging-backend.onrender.com/api/user?username=${username}`)
+            setCurrentUser(res.data)
         }
         fetchingPost()
-    }, [id])
-
-    console.log(currentPost)
+    }, [username])
 
     return (
         <div>
             <div className="mt-10 ">
-                <h1 className='text-2xl px-10 font-semibold '>Blog</h1>
+                <h1 className='text-2xl px-10 font-semibold'>Blog</h1>
                 <div className="container">
                     <div className="blog-left">
                         <div className="">
-                            <img src={currentPost.image?.url} width={1150} height={500} alt="" />
+                            <img src={currentPost.image?.url} className="object-cover m-auto mt-4 " style={{ width: "85%", maxHeight: "75vh" }} alt="" />
                         </div>
                         <div className="px-10 flex flex-col gap-2 relative">
                             <div className="flex mb-5 items-center gap-3 justify-between">
-                                <Link to={`/profilepage/${user._id}`}>
+                                <Link to={`/profilepage/${currentUser?.username}`}>
                                     <div className="flex gap-3">
-                                        <img className='object-cover rounded-full w-10 h-10' src={"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"} width={1000} height={1000} alt="" />
+                                        <img className='object-cover rounded-full w-10 h-10' src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} width={1000} height={1000} alt="" />
                                         <div className="flex flex-col text-center">
-                                            <h2 className='font-medium'>stefew</h2>
-                                            <p className='self-start text-xs'>12:35 pm</p>
+                                            <h2 className='font-medium'>{currentUser?.username}</h2>
+                                            <p className='self-start text-xs'>{format(currentPost.createdAt)}</p>
                                         </div>
                                     </div>
                                 </Link>
