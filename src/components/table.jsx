@@ -7,7 +7,7 @@ const Table = () => {
     const user = useSelector((state) => state.user.user)
     useEffect(() => {
         const fetchUserData = async () => {
-            const res = await axios.get(`http://localhost:5000/api/user/users?username=${user.username}`)
+            const res = await axios.get(`http://localhost:5000/api/post?username=${user.username}`)
             console.log(res.data)
         }
         fetchUserData()

@@ -34,7 +34,7 @@ export default function App() {
       }
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/blogpage" element={<Blogpage/>} />
+        <Route path="/blogpage/:id" element={<Blogpage/>} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/profilepage/:id" element={<ProfilePage />} />
         <Route path="/dashboard" element={User ? <Dashboard /> : <Navigate to={"../login"} />} />

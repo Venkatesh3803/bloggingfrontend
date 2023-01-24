@@ -1,13 +1,29 @@
 
 import React from 'react'
+import { useEffect } from 'react';
 import { useState } from 'react'
 import { AiOutlineShareAlt, AiFillLike, AiOutlineComment } from "react-icons/ai";
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import "../styles/blogpage.css"
+import axios from 'axios';
+import { useParams } from "react-router-dom"
+
 const BlogsPage = () => {
+    const { id } = useParams()
     const [comment, setComment] = useState()
     const user = useSelector((state) => state.user.user)
+    const [currentPost, setCurrentPost] = useState("")
+    useEffect(() => {
+        const fetchingPost = async () => {
+            const res = await axios.get(`http://localhost:5000/api/post/${id}`)
+            setCurrentPost(res.data)
+        }
+        fetchingPost()
+    }, [id])
+
+    console.log(currentPost)
+
     return (
         <div>
             <div className="mt-10 ">
@@ -15,7 +31,7 @@ const BlogsPage = () => {
                 <div className="container">
                     <div className="blog-left">
                         <div className="">
-                            <img src={"https://images.unsplash.com/photo-1667509183423-3dc91386c055?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"} width={1150} height={500} alt="" />
+                            <img src={currentPost.image?.url} width={1150} height={500} alt="" />
                         </div>
                         <div className="px-10 flex flex-col gap-2 relative">
                             <div className="flex mb-5 items-center gap-3 justify-between">
@@ -113,8 +129,8 @@ const BlogsPage = () => {
 
                             }
 
-                            <h1 className=' font-bold text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae .</h1>
-                            <p className='pb-10'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. In, harum qui impedit eligendi mollitia cum quisquam veniam quaerat maxime, ullam neque voluptatem ex nam libero culpa nihil? Praesentium maxime minima nam dolor iste blanditiis doloribus velit, sunt repellat! A maiores accusamus, expedita dolores vitae tenetur culpa amet nihil debitis nisi, vel adipisci quas facilis unde similique blanditiis nostrum optio eos corrupti voluptate, provident incidunt totam explicabo. Suscipit sint vel reprehenderit iste qui minus, perferendis cum deleniti libero repudiandae dicta at ad commodi ex sit quibusdam ullam facilis odio deserunt doloremque quis saepe totam soluta accusamus? Et possimus veniam sapiente unde exercitationem dolorem eveniet illum perferendis fugiat iure, ratione suscipit eaque dignissimos sunt accusamus, corrupti pariatur, soluta quod! Voluptatibus, voluptate temporibus repudiandae nobis molestias est consequatur. Laboriosam, explicabo incidunt provident quidem alias facilis assumenda nulla ratione distinctio! Nemo ut magnam eius repudiandae sint nostrum ullam minima, quam repellat, iusto placeat fuga voluptatem explicabo rerum quo. Distinctio illo neque dolore voluptas dolorem similique ut odio pariatur, laborum tenetur tempore quo quia nobis doloribus officia debitis impedit earum nisi rem libero provident cum. Minima et commodi hic, cupiditate aliquam ea assumenda fugiat quidem molestiae autem aspernatur repellat provident repellendus rerum. Aspernatur ea aut magni possimus, similique nesciunt et recusandae nam placeat maiores quod mollitia quae illo dolorem voluptas facilis nisi natus tempore perspiciatis optio eveniet non. Beatae, ipsam! Eos quae recusandae ea provident, sed aliquid totam suscipit blanditiis beatae fugit sint quaerat nulla officia facilis reiciendis tempora assumenda at, ut, eligendi delectus commodi? Dolorem hic, sed delectus impedit error nam rerum quis fugit eaque doloremque, alias reprehenderit recusandae repellat incidunt eos! Assumenda perferendis quis voluptas error nemo expedita quo! Alias culpa facilis laborum maxime. Corporis explicabo exercitationem ad molestias hic eveniet nam odio nobis eligendi, praesentium excepturi quo animi deserunt dolorum voluptate blanditiis, illum rem. Consequatur inventore harum numquam fuga, quibusdam ab quis adipisci sapiente porro aliquid vero repellendus quia ea quos doloribus ut eos facilis aspernatur repudiandae maxime nam atque consequuntur. Amet pariatur provident voluptatibus perferendis odit dolorem nulla unde? Id adipisci cumque eius earum repellat error. Modi iste voluptatibus, nam ab qui neque, ducimus eligendi debitis consectetur consequatur impedit suscipit dolores veritatis distinctio dolore harum perspiciatis tempore. Aspernatur consectetur laborum reprehenderit veritatis sunt vero culpa maiores similique porro consequuntur a, voluptatibus minima accusantium numquam provident! Minus, magni quasi aut consequuntur dolor ratione est, at qui iste ipsam, doloribus doloremque laboriosam illum dolorum deleniti maiores odit nemo officia! Sint iste cum aperiam saepe harum quasi optio omnis nemo sunt quia? Reiciendis rem beatae atque, saepe nesciunt aliquid praesentium tenetur quia? Facere dolore illum ducimus recusandae eaque neque iste aliquid nulla sapiente, dignissimos delectus, tenetur maiores totam ut illo animi dolorem ipsum maxime aliquam quos sit dolorum quidem tempora quasi! Culpa tempora, rerum ex iusto autem, soluta esse hic dolorum distinctio saepe neque sit atque eligendi magnam ea quibusdam voluptate. Iste totam ab ea tenetur libero exercitationem, autem et natus provident maxime quisquam quos quae, expedita nobis laborum aliquid debitis, hic suscipit cumque!</p>
+                            <h1 className=' font-bold text-xl'>{currentPost.title}</h1>
+                            <p className='pb-10'>{currentPost.desc}</p>
                         </div>
                     </div>
                     <div className="blog-right">
