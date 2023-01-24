@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export const registerUser = createAsyncThunk("registerUser", async (body) => {
-    const res = await fetch("http://localhost:5000/api/auth/register", {
+    const res = await fetch("https://blooging-backend.onrender.com/api/auth/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -22,7 +22,7 @@ export const registerUser = createAsyncThunk("registerUser", async (body) => {
 })
 export const loginUser = createAsyncThunk("loginuser", async (body) => {
 
-    const res = await fetch("http://localhost:5000/api/auth/login", {
+    const res = await fetch("https://blooging-backend.onrender.com/api/auth/login", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"

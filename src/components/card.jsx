@@ -1,12 +1,10 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useGetPostQuery } from '../redux/postApi'
+
 
 const Cards = () => {
-
-    const { data } = useGetPostQuery()
-    console.log(data)
+ 
     return (
         <div>
             <section className="text-gray-600 body-font">

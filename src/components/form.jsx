@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import { uploadPost } from '../redux/postSlice'
-
+import { useSelector } from "react-redux"
+// import { uploadPost } from '../redux/postSlice'
+import axios from 'axios'
 
 const Form = () => {
     const user = useSelector((state) => state.user.user)
@@ -11,7 +11,7 @@ const Form = () => {
     const [desc, setDesc] = useState("")
     const [image, setImage] = useState("")
     const [category, setCategory] = useState("")
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
 
     const handleChange = (e) => {
@@ -40,9 +40,16 @@ const Form = () => {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        dispatch(uploadPost({ title, desc, image, category, userId }))
+        const res = await axios.post("https://blooging-backend.onrender.com/api/create", {
+            userId,
+            title,
+            desc,
+            category,
+            image
+        })
+        return res
     }
 
     return (
@@ -74,7 +81,7 @@ const Form = () => {
                                             <input type="file" onChange={handleImage} rows="8" name="image" id="street-address" autoComplete="street-address" className="mt-1  w-full rounded-md p-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                                         </span>
                                     </div>
-                                   
+
                                     <div className="col-span-6">
                                         <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">Artical</label>
                                         <textarea type="text" rows="8" onChange={handleChange} value={desc} name="desc" id="street-address" autoComplete="street-address" className="mt-1 block w-full rounded-md p-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
