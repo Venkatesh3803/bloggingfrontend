@@ -1,22 +1,17 @@
 
 import React, { useEffect } from 'react'
 import { useSelector } from "react-redux"
-import { useParams } from 'react-router-dom'
-// import { useGetUsersPostMutation } from '../redux/postApi'
 import axios from "axios"
 
 const Table = () => {
-    const {id} = useParams()
-    const username = useSelector((state) => state.user.user.username)
+    const user = useSelector((state) => state.user.user)
     useEffect(() => {
         const fetchUserData = async () => {
-            const res = await axios.get(`http://localhost:5000/api/user/users/${id}`, {
-                username : username ,
-            })
+            const res = await axios.get(`http://localhost:5000/api/user/users?username=${user.username}`)
             console.log(res.data)
         }
         fetchUserData()
-    }, [username, id])
+    }, [user.username])
 
     return (
         <div>

@@ -18,7 +18,9 @@ const Navber = () => {
             <header className="text-black body-font sticky top-0 z-30 shadow-lg  bg-orange-100">
                 <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                     <p className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-                        <span className="ml-3 text-xl">Daily Blogs</span>
+                        <Link to={"/"}>
+                            <span className="ml-3 text-xl">Daily Blogs</span>
+                        </Link>
                     </p>
                     <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
                         <Link to={"/"}>
@@ -51,12 +53,12 @@ const Navber = () => {
                         {profile &&
                             <div onMouseLeave={() => setProfile(false)} className="bg-purple-300 absolute top-8 right-3 p-5 rounded-lg text-gray-800">
                                 <ul className='p-2 text-lg rounded-lg hover:bg-purple-200'>
-                                    <Link to={`../profilepage/${user._id}`}>
+                                    <Link to={`../profilepage/${user?._id}`}>
                                         <li>Profile</li>
                                     </Link>
                                 </ul>
                                 <ul className='p-2 text-lg rounded-lg hover:bg-purple-200'>
-                                    <Link to={`../dashboard/${user._id}`}>
+                                    <Link to={`../dashboard`}>
                                         <li>Dashboard</li>
                                     </Link>
                                 </ul>

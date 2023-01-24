@@ -58,6 +58,8 @@ export const authSlice = createSlice({
                 state.loading = false
                 state.message = action.payload.message
                 state.user = action.payload
+                localStorage.setItem("user", JSON.stringify(action.payload.others))
+                localStorage.setItem("token", action.payload.token)
         },
         [registerUser.rejected]: (state, action) => {
             state.error = true

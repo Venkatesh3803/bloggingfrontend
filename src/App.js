@@ -37,7 +37,7 @@ export default function App() {
         <Route path="/blogpage" element={<Blogpage/>} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/profilepage/:id" element={<ProfilePage />} />
-        <Route path="/dashboard/:id" element={User ? <Dashboard /> : <Navigate to={"../login"} />} />
+        <Route path="/dashboard" element={User ? <Dashboard /> : <Navigate to={"../login"} />} />
         <Route path="/login" element={User ? <Navigate to={"/"} /> : <Login />} />
         <Route path="/register" element={User ? <Navigate to={"../login"} /> : <Register />} />
         <Route path="/aboutus" element={<Aboutus />} />

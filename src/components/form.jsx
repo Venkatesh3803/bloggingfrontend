@@ -6,12 +6,11 @@ import axios from 'axios'
 
 const Form = () => {
     const user = useSelector((state) => state.user.user)
-    let userId = user._id
     const [title, setTitle] = useState("")
     const [desc, setDesc] = useState("")
     const [image, setImage] = useState("")
     const [category, setCategory] = useState("")
-    // const dispatch = useDispatch()
+  
 
 
     const handleChange = (e) => {
@@ -43,11 +42,11 @@ const Form = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const res = await axios.post("https://blooging-backend.onrender.com/api/post/create", {
-            userId,
             title,
             desc,
             category,
-            image
+            image,
+            username: user.username,
         })
         return res.data
     }
