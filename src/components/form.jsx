@@ -42,14 +42,14 @@ const Form = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const res = await axios.post("https://blooging-backend.onrender.com/api/create", {
+        const res = await axios.post("https://blooging-backend.onrender.com/api/post/create", {
             userId,
             title,
             desc,
             category,
             image
         })
-        return res
+        return res.data
     }
 
     return (

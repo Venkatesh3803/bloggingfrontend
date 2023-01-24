@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export const uploadPost = createAsyncThunk("uploadpost", async (body) => {
-    const res = await fetch("http://localhost:5000/api/post/create", {
+    const res = await fetch("https://blooging-backend.onrender.com/api/post/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

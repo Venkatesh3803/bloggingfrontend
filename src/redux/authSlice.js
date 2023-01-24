@@ -20,6 +20,7 @@ export const registerUser = createAsyncThunk("registerUser", async (body) => {
     })
     return res.json()
 })
+
 export const loginUser = createAsyncThunk("loginuser", async (body) => {
 
     const res = await fetch("https://blooging-backend.onrender.com/api/auth/login", {
