@@ -1,0 +1,8 @@
+.app {
+    position: relative;
+    background: rgb(244, 112, 99);
+    background: -moz-radial-gradient(circle, rgba(244, 112, 99, 0.5945728633250176) 0%, rgba(197, 196, 174, 1) 49%, rgba(151, 238, 245, 1) 96%);
+    background: -webkit-radial-gradient(circle, rgba(244, 112, 99, 0.5945728633250176) 0%, rgba(197, 196, 174, 1) 49%, rgba(151, 238, 245, 1) 96%);
+    background: radial-gradient(circle, rgba(244, 112, 99, 0.5945728633250176) 0%, rgba(197, 196, 174, 1) 49%, rgba(151, 238, 245, 1) 96%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f47063", endColorstr="#97eef5", GradientType=1);
+}

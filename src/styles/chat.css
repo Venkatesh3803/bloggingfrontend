@@ -1,0 +1,47 @@
+.chat{
+    position: fixed;
+    top: 23rem;
+    right: 3rem;
+    background: rgb(249, 200, 110);
+    height: 350px;
+    width: 30%;
+    border-radius: 15px;
+    z-index: 12;
+    transition: 0.3s ease;
+}
+
+.chat-left{
+    flex:1;
+    background-color: rgb(206, 206, 206);
+    border-radius: 8px; 
+    padding: 5px;
+    height: 43vh;
+    overflow: scroll; 
+   
+}
+.left::-webkit-scrollbar{
+    display: none;
+}
+.chat-right{
+    flex: 2;
+    background-color:bisque;
+    border-radius: 8px;
+    position: relative;
+}
+
+
+@media (max-Width: 768px) {
+    .chat{
+        width: 50%;
+    }
+    
+}
+
+@media (max-width : 480px) {
+    .chat{
+        width: 100%;
+        right: 0;
+        bottom: 10px;
+    }
+}
+
