@@ -1,17 +1,26 @@
 
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react'
-import { AiOutlineShareAlt, AiFillLike, AiOutlineComment } from "react-icons/ai";
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { AiOutlineShareAlt, AiFillLike, AiOutlineComment, AiOutlineLike } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import "../styles/blogpage.css"
 import axios from 'axios';
-import {format} from "timeago.js"
+import { format } from "timeago.js"
+import { toast } from "react-toastify"
 
 
-const BlogsPage = ({ currentPost, username }) => {
+const BlogsPage = ({ currentPost, username, id }) => {
+    const user = useSelector((state) => state.user.user)
+    const [liked, setLiked] = useState(false)
     const [comment, setComment] = useState()
     const [currentUser, setCurrentUser] = useState("")
+    const [like, setLike] = useState(currentPost.likes?.length)
+
+    useEffect(() => {
+        setLiked(currentPost.likes?.includes(user._id))
+    }, [currentPost.likes, user._id])
+
     useEffect(() => {
         const fetchingPost = async () => {
             const res = await axios.get(`https://blooging-backend.onrender.com/api/user?username=${username}`)
@@ -19,6 +28,16 @@ const BlogsPage = ({ currentPost, username }) => {
         }
         fetchingPost()
     }, [username])
+
+    const handleLike = async () => {
+        const res = await axios.post(`https://blooging-backend.onrender.com/api/post/like/${id}`, {
+            userId: user._id
+        })
+        await res.data
+        toast.success(res.data)
+        setLike(liked ? like - 1 : like + 1)
+        setLiked(!liked)
+    }
 
     return (
         <div>
@@ -41,9 +60,13 @@ const BlogsPage = ({ currentPost, username }) => {
                                     </div>
                                 </Link>
                                 <div className="flex gap-3">
-                                    <div className="flex items-center gap-1">
-                                        <AiFillLike className='text-2xl cursor-pointer' />
-                                        <span className='text-xs text-gray-600'>125</span>
+                                    <div onClick={handleLike} className="flex items-center gap-1">
+                                        {liked ?
+                                            <>
+                                                <AiFillLike className='text-2xl cursor-pointer text-blue-600' />
+                                                <span className='text-xs text-gray-600'>{like}</span>
+                                            </>
+                                            : <AiOutlineLike className='text-2xl cursor-pointer' />}
                                     </div>
                                     <div className="flex items-center gap-1">
                                         <AiOutlineComment onClick={() => setComment(!comment)} className='text-2xl cursor-pointer' />

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../redux/authSlice';
+import { toast } from "react-toastify"
 
 const Navber = () => {
     const user = useSelector((state) => state.user.user)
@@ -12,6 +13,8 @@ const Navber = () => {
     const dispatch = useDispatch()
     const handleLogOut = () => {
         dispatch(logOut())
+
+        toast.success("Loged Out")
     }
     return (
         <>

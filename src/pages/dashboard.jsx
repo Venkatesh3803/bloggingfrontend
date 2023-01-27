@@ -3,17 +3,16 @@ import Footer from '../components/footer'
 import Form from '../components/form'
 import Navber from '../components/navber'
 import Table from '../components/table'
-import "../styles/dashboard.css"
 
 const Dashboard = () => {
     return (
         <div>
             <Navber />
-            <div className="dashboard">
-                <div className="dash-left">
+            <div className='p-2 md:p-10 flex gap-2 flex-wrap' >
+                <div style={{flex:"1.5"}}>
                     <Form />
                 </div>
-                <div className="dash-right">
+                <div style={{flex:"2.4"}}>
                     <Table />
                 </div>
             </div>

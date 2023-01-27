@@ -21,7 +21,7 @@ const Blogpage = () => {
     return (
         <div>
             <Navber/>
-            <Blog currentPost = {currentPost} username = {currentPost.username}/>
+            <Blog currentPost = {currentPost} username = {currentPost.username} id= {id}/>
             <Footer/>
         </div>
     )

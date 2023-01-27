@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-
+import { toast } from "react-toastify"
 
 
 const initialState = {
@@ -55,11 +55,22 @@ export const authSlice = createSlice({
             state.loading = true;
         },
         [registerUser.fulfilled]: (state, action) => {
-                state.loading = false
-                state.message = action.payload.message
-                state.user = action.payload
-                localStorage.setItem("user", JSON.stringify(action.payload.others))
+            state.loading = false
+            state.message = action.payload.message
+            state.user = action.payload.user
+            state.token = action.payload.token
+            if (action.payload.user) {
+                localStorage.setItem("user", JSON.stringify(action.payload.user))
+            }
+            if (action.payload.token) {
                 localStorage.setItem("token", action.payload.token)
+            }
+            if (action.payload.message === "Registerd Sucessful") {
+                toast.success(action.payload.message)
+            } else{
+                toast.error(action.payload)
+            }
+
         },
         [registerUser.rejected]: (state, action) => {
             state.error = true
@@ -71,14 +82,25 @@ export const authSlice = createSlice({
             state.loading = true;
         },
         [loginUser.fulfilled]: (state, action) => {
-
             state.loading = false
             state.message = action.payload.message
             state.user = action.payload.others
             state.token = action.payload.token
 
-            localStorage.setItem("user", JSON.stringify(action.payload.others))
-            localStorage.setItem("token", action.payload.token)
+            if (action.payload.others) {
+                localStorage.setItem("user", JSON.stringify(action.payload.others))
+            }
+            if (action.payload.token) {
+                localStorage.setItem("token", action.payload.token)
+            }
+
+
+            if (action.payload.message === "Login Sucessful") {
+                toast.success(action.payload.message)
+            } else{
+                toast.error(action.payload.message)
+            }
+
 
         },
 

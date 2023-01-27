@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import { useSelector } from "react-redux"
-// import { uploadPost } from '../redux/postSlice'
 import axios from 'axios'
+import { toast } from "react-toastify"
 
 const Form = () => {
     const user = useSelector((state) => state.user.user)
@@ -10,7 +10,7 @@ const Form = () => {
     const [desc, setDesc] = useState("")
     const [image, setImage] = useState("")
     const [category, setCategory] = useState("")
-  
+
 
 
     const handleChange = (e) => {
@@ -48,7 +48,10 @@ const Form = () => {
             image,
             username: user.username,
         })
-        return res.data
+        await (res.data)
+        if (res.data) {
+            toast.success("posted sucessfully")
+        }
     }
 
     return (
